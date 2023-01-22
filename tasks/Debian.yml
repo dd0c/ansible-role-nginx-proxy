@@ -1,0 +1,32 @@
+---
+
+- name: Ensure all packages to run NginX as reverse proxy are present
+  ansible.builtin.apt:
+    pkg:
+    - gnupg2
+    - curl
+    - nginx-full
+
+- name: Enable NginX service and make sure it's started
+  ansible.builtin.systemd:
+    name:  nginx
+    enabled: yes
+    masked: no
+    state: started
+
+#- name: Copy wiki.conf to nginx sites-available
+#  ansible.builtin.copy:
+#    src: files/etc/nginx/sites-available/wiki.conf
+#    dest: /etc/nginx/sites-available/wiki.conf
+#    owner: root
+#    group: root
+#    mode: '0644'
+
+#- name: Create symbolic link for wiki.conf in sites-enabled
+#  file:
+#    src: /etc/nginx/sites-available/wiki.conf
+#    dest: /etc/nginx/sites-enabled/wiki.conf
+#    state: link
+#  notify: Restart nginx
+
+...
